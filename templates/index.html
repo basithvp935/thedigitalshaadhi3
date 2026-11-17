@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethan & Sophia | Wedding Invitation</title>
+  <meta name="description" content="You are cordially invited to celebrate the wedding of Ethan & Sophia.">
+  <script>
+    // Phones & small tablets open the invitation itself, full screen.
+    if (window.matchMedia("(max-width: 640px)").matches) location.replace("invite.html");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --plum-900: #1e0c2e; --plum-700: #3d1b5a; --lilac: #dccbef;
+      --gold-light: #ead39b;
+      --gold-grad: linear-gradient(135deg, #b8893c 0%, #f1dca2 45%, #c99c4c 70%, #f5e3b5 100%);
+      --phone-h: min(860px, calc(100vh - 110px));
+      --phone-w: min(420px, calc(var(--phone-h) * .485));
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: "Cormorant Garamond", Georgia, serif; color: #fff;
+      background: var(--plum-900); overflow: hidden;
+      display: grid; place-items: center;
+    }
+
+    /* ---------- stage background ---------- */
+    .stage-bg {
+      position: fixed; inset: -40px;
+      background: url("images/floral-stage.jpg") center / cover no-repeat;
+      filter: blur(14px) saturate(1.2) brightness(.75);
+      animation: drift 30s ease-in-out infinite alternate;
+    }
+    .stage-bg::after {
+      content: ""; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(123, 79, 166, .25), rgba(30, 12, 46, .85) 75%);
+    }
+    @keyframes drift { from { transform: scale(1.05); } to { transform: scale(1.18) translateX(-2%); } }
+    .rays {
+      position: fixed; left: 50%; top: 50%; width: 180vmax; height: 180vmax; pointer-events: none;
+      transform: translate(-50%, -50%);
+      background: repeating-conic-gradient(rgba(255, 236, 200, .07) 0deg 4deg, transparent 4deg 14deg);
+      -webkit-mask: radial-gradient(circle, #000 0%, transparent 45%); mask: radial-gradient(circle, #000 0%, transparent 45%);
+      animation: spin 120s linear infinite;
+    }
+    @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+    .sparks span {
+      position: fixed; width: 3px; height: 3px; border-radius: 50%; background: #fff3cf;
+      box-shadow: 0 0 8px 2px rgba(241, 220, 162, .8); opacity: 0;
+      animation: tw var(--d) ease-in-out var(--l) infinite;
+    }
+    @keyframes tw { 0%, 100% { opacity: 0; transform: scale(.3); } 50% { opacity: 1; transform: scale(1); } }
+    .frame {
+      position: fixed; inset: 18px; border: 1px solid rgba(234, 211, 155, .25); pointer-events: none;
+    }
+    .frame::before { content: ""; position: absolute; inset: 6px; border: 1px solid rgba(234, 211, 155, .1); }
+
+    /* ---------- layout ---------- */
+    .stage {
+      position: relative; z-index: 2; width: 100%; max-width: 1400px; padding: 0 60px;
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 56px;
+    }
+    .side { text-align: center; animation: rise 1.4s .3s both cubic-bezier(.22, 1, .36, 1); }
+    .side.right { animation-delay: .5s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+    .caps { font-family: "Cinzel", serif; font-size: .72rem; letter-spacing: .4em; text-transform: uppercase; color: var(--gold-light); }
+    .names {
+      font-family: "Great Vibes", cursive; font-size: clamp(3rem, 5.4vw, 5.6rem); line-height: 1.05; margin: .6rem 0;
+      background: linear-gradient(180deg, #fff 30%, #e3d3f7); -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 10px 30px rgba(20, 6, 35, .6));
+    }
+    .names i { font-style: normal; font-size: .6em; background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .rule { width: 1px; height: 70px; margin: 1.2rem auto; background: linear-gradient(transparent, var(--gold-light), transparent); }
+    .date {
+      font-family: "Cinzel", serif; font-size: clamp(3.5rem, 6vw, 6rem); line-height: 1;
+      background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 8px 20px rgba(20, 6, 35, .5));
+    }
+    .lead { font-style: italic; font-size: 1.15rem; opacity: .85; max-width: 300px; margin: .8rem auto 0; }
+    .open-btn {
+      display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.6rem; padding: .8rem 1.6rem;
+      border-radius: 50px; border: 1px solid var(--gold-light); color: var(--gold-light); text-decoration: none;
+      font-family: "Cinzel", serif; font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+      background: rgba(255, 255, 255, .06); backdrop-filter: blur(8px); transition: all .4s;
+    }
+    .open-btn:hover { background: var(--gold-grad); color: var(--plum-900); }
+
+    /* ---------- the phone ---------- */
+    .phone-wrap { perspective: 1600px; animation: rise 1.6s both cubic-bezier(.22, 1, .36, 1); }
+    .phone {
+      position: relative; width: var(--phone-w); height: var(--phone-h);
+      padding: 12px; border-radius: 54px;
+      background: linear-gradient(150deg, #4a2370, #1f0c30 45%, #3b1a58);
+      box-shadow:
+        0 0 0 1.5px #c99c4c, 0 0 0 4px rgba(30, 12, 46, .9), 0 0 0 5.5px rgba(234, 211, 155, .55),
+        0 60px 120px -30px rgba(0, 0, 0, .8), 0 0 90px rgba(155, 111, 208, .35);
+      transform: rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg));
+      transition: transform .6s cubic-bezier(.22, 1, .36, 1);
+      animation: float 7s ease-in-out infinite;
+    }
+    @keyframes float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+    .phone::before { /* glass glare */
+      content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 3;
+      background: linear-gradient(120deg, rgba(255, 255, 255, .14), transparent 30%, transparent 70%, rgba(255, 255, 255, .06));
+    }
+    .btn-side { position: absolute; width: 4px; border-radius: 2px; background: linear-gradient(#c99c4c, #f1dca2, #b8893c); }
+    .btn-side.a { left: -5px; top: 18%; height: 60px; }
+    .btn-side.b { left: -5px; top: 28%; height: 60px; }
+    .btn-side.c { right: -5px; top: 22%; height: 90px; }
+    .screen {
+      position: relative; width: 100%; height: 100%; border-radius: 43px; overflow: hidden;
+      background: #f7f0fd; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .4);
+    }
+    .screen iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .island {
+      position: absolute; top: 5px; left: 50%; transform: translateX(-50%); z-index: 4;
+      width: 88px; height: 20px; border-radius: 20px; background: #0d0414; pointer-events: none;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .05);
+    }
+    .island::after { content: ""; position: absolute; right: 12px; top: 5px; width: 9px; height: 9px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, #3b3f8a, #0d0414 70%); }
+    .phone-shadow { width: 70%; height: 30px; margin: 18px auto 0; border-radius: 50%; background: radial-gradient(ellipse, rgba(0, 0, 0, .55), transparent 70%); filter: blur(6px); }
+
+    @media (max-width: 1100px) {
+      .stage { grid-template-columns: 1fr; padding: 0; }
+      .side { display: none; }
+    }
+
+    /* Phones / narrow windows: no phone mock-up — the invitation fills the whole screen */
+    @media (max-width: 640px), (max-height: 520px) {
+      body { display: block; background: #f7f0fd; }
+      .stage-bg, .rays, .sparks, .frame, .side, .island, .btn-side, .phone-shadow { display: none; }
+      .stage { display: block; max-width: none; padding: 0; }
+      .phone-wrap { perspective: none; animation: none; }
+      .phone {
+        width: 100vw; height: 100vh; height: 100dvh;
+        padding: 0; border-radius: 0; box-shadow: none; background: none;
+        transform: none !important; animation: none;
+      }
+      .phone::before { display: none; }
+      .screen { border-radius: 0; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage-bg"></div>
+  <div class="rays"></div>
+  <div class="sparks" id="sparks"></div>
+  <div class="frame"></div>
+
+  <main class="stage">
+    <section class="side left">
+      <div class="caps">The wedding of</div>
+      <h1 class="names">Ethan<br><i>&amp;</i><br>Sophia</h1>
+      <div class="rule"></div>
+      <p class="lead">Your invitation is waiting inside &mdash; tap the wax seal to open it, then scroll.</p>
+    </section>
+
+    <div class="phone-wrap">
+      <div class="phone" id="phone">
+        <span class="btn-side a"></span><span class="btn-side b"></span><span class="btn-side c"></span>
+        <div class="island"></div>
+        <div class="screen">
+          <iframe src="invite.html" title="Ethan & Sophia wedding invitation" allow="autoplay"></iframe>
+        </div>
+      </div>
+      <div class="phone-shadow"></div>
+    </div>
+
+    <section class="side right">
+      <div class="caps">Save the date</div>
+      <div class="date">14</div>
+      <div class="caps" style="color:#fff;letter-spacing:.3em;margin-top:.4rem">February &middot; 2027</div>
+      <div class="rule"></div>
+      <div class="caps">Lavender Palace Gardens</div>
+      <p class="lead">Lake Como, Italy</p>
+      <a class="open-btn" href="invite.html"><i class="bi bi-arrows-fullscreen"></i> Open full screen</a>
+    </section>
+  </main>
+
+  <script>
+    // twinkling sparks
+    const host = document.getElementById("sparks");
+    for (let i = 0; i < 50; i++) {
+      const s = document.createElement("span");
+      s.style.left = Math.random() * 100 + "vw";
+      s.style.top = Math.random() * 100 + "vh";
+      s.style.setProperty("--d", 2.5 + Math.random() * 4 + "s");
+      s.style.setProperty("--l", Math.random() * 5 + "s");
+      host.appendChild(s);
+    }
+    // the phone leans gently toward the mouse (outside the screen)
+    const phone = document.getElementById("phone");
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.addEventListener("mousemove", (e) => {
+        const x = e.clientX / innerWidth - 0.5, y = e.clientY / innerHeight - 0.5;
+        phone.style.setProperty("--ry", x * 10 + "deg");
+        phone.style.setProperty("--rx", -y * 6 + "deg");
+      });
+    }
+  </script>
+</body>
+</html>

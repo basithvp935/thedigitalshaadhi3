@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethan & Sophia | Wedding Invitation</title>
+  <meta name="description" content="You are cordially invited to celebrate the wedding of Ethan & Sophia.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/phone.css">
+</head>
+<body class="is-locked">
+
+  <!-- ============ PRELOADER ============ -->
+  <div id="preloader">
+    <div class="loader-ring">
+      <span class="loader-monogram">E<i>&amp;</i>S</span>
+    </div>
+  </div>
+
+  <!-- ============ LETTER-OPENING INTRO (fixed, full screen) ============ -->
+  <section id="intro" aria-label="Open invitation">
+    <div class="ib-blur"></div>
+    <div class="ib-photo" id="ibPhoto"></div>
+    <div class="ib-vignette"></div>
+    <div class="ib-sparkles" id="ibSparkles"></div>
+    <div class="ib-dim"></div>
+
+    <!-- the envelope in the photo, rebuilt as real layers -->
+    <div class="env" id="env">
+      <div class="env-inside"></div>
+
+      <div class="env-letter" id="envLetter">
+        <div class="letter" id="letter">
+          <!-- top panel (folded over the front) -->
+          <div class="lp lp-top">
+            <div class="lf front">
+              <span class="l-crest">E<i>&amp;</i>S</span>
+              <span class="l-small">Together with their families</span>
+              <span class="l-line"></span>
+              <span class="l-italic">request the honour of your presence<br>at the marriage of</span>
+            </div>
+            <div class="lf back">
+              <span class="l-seal">E<i>&amp;</i>S</span>
+              <span class="l-for">for you, with love</span>
+            </div>
+          </div>
+          <!-- middle panel -->
+          <div class="lp lp-mid">
+            <div class="lf front">
+              <span class="l-name">Ethan</span>
+              <span class="l-amp">&amp;</span>
+              <span class="l-name">Sophia</span>
+            </div>
+          </div>
+          <!-- bottom panel (folded behind the top one) -->
+          <div class="lp lp-bot">
+            <div class="lf front">
+              <span class="l-date"><b>Sunday</b><em>14</em><b>Feb 2027</b></span>
+              <span class="l-small">at four o’clock in the afternoon</span>
+              <span class="l-line"></span>
+              <span class="l-venue">Lavender Palace Gardens &middot; Lake Como</span>
+              <span class="l-italic small">reception to follow</span>
+            </div>
+            <div class="lf back"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="env-pocket-under"></div>
+      <div class="env-pocket tex"></div>
+
+      <div class="env-flap" id="envFlap">
+        <div class="flap-face front tex"></div>
+        <div class="flap-face back"></div>
+      </div>
+
+      <button class="env-seal" id="openInvite" aria-label="Break the seal and open the invitation">
+        <span class="seal-ring"></span><span class="seal-ring r2"></span><span class="seal-ring r3"></span>
+      </button>
+    </div>
+
+    <header class="ib-top">
+      <span class="ib-mono">E<i>&amp;</i>S</span>
+      <p>You have received a royal invitation</p>
+    </header>
+    <p class="ib-hint" id="ibHint"><i class="bi bi-hand-index-thumb"></i> Tap the wax seal to open</p>
+    <p class="ib-enter" id="ibEnter">Tap anywhere to enter <i class="bi bi-arrow-right"></i></p>
+    <div class="ib-flash"></div>
+  </section>
+  <!-- ============ FX LAYERS ============ -->
+  <canvas id="petals"></canvas>
+  <div class="scroll-progress"><span></span></div>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+
+  <main>
+    <!-- ============ HERO (garden palace) ============ -->
+    <section id="home" class="hero">
+      <!-- layered 3D scene -->
+      <div class="hero-layer hero-bg" data-parallax="0.3" data-depth="14"></div>
+      <div class="hero-layer hero-dof" data-depth="38"></div>
+      <div class="hero-tint"></div>
+      <div class="hero-sun"></div>
+      <div class="hero-rays"></div>
+      <div class="hero-mist m1"></div>
+      <div class="hero-mist m2"></div>
+      <div class="hero-veil"></div>
+      <div class="hero-layer hero-fireflies" id="fireflies" data-depth="55"></div>
+
+      <!-- ornate frame -->
+      <div class="hero-frame" aria-hidden="true">
+        <span class="fc tl"></span><span class="fc tr"></span><span class="fc bl"></span><span class="fc br"></span>
+      </div>
+      <div class="hero-side left" aria-hidden="true"><span>Save the Date</span><i></i><span>14 · 02 · 2027</span></div>
+      <div class="hero-side right" aria-hidden="true"><span>Lake Como</span><i></i><span>Italy</span></div>
+
+      <div class="container hero-content" id="heroTilt">
+        <div class="hero-crest reveal" data-anim="zoom">
+          <svg viewBox="0 0 160 160" aria-hidden="true">
+            <defs>
+              <linearGradient id="goldG" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#b8893c"/><stop offset=".45" stop-color="#f6e4b0"/>
+                <stop offset=".7" stop-color="#c99c4c"/><stop offset="1" stop-color="#f5e3b5"/>
+              </linearGradient>
+              <g id="laurel">
+                <path d="M80 146 C46 140 24 112 22 74" fill="none" stroke="url(#goldG)" stroke-width="1.6"/>
+                <ellipse cx="28" cy="96" rx="9" ry="3.6" transform="rotate(-62 28 96)" fill="url(#goldG)"/>
+                <ellipse cx="36" cy="114" rx="9" ry="3.6" transform="rotate(-42 36 114)" fill="url(#goldG)"/>
+                <ellipse cx="50" cy="129" rx="9" ry="3.6" transform="rotate(-22 50 129)" fill="url(#goldG)"/>
+                <ellipse cx="24" cy="80" rx="8" ry="3.2" transform="rotate(-78 24 80)" fill="url(#goldG)"/>
+                <ellipse cx="38" cy="100" rx="7" ry="3" transform="rotate(-112 38 100)" fill="url(#goldG)"/>
+                <ellipse cx="47" cy="117" rx="7" ry="3" transform="rotate(-132 47 117)" fill="url(#goldG)"/>
+                <ellipse cx="62" cy="133" rx="7" ry="3" transform="rotate(-152 62 133)" fill="url(#goldG)"/>
+              </g>
+            </defs>
+            <circle cx="80" cy="80" r="46" fill="rgba(42,18,64,.35)" stroke="url(#goldG)" stroke-width="1.4"/>
+            <circle cx="80" cy="80" r="40" fill="none" stroke="url(#goldG)" stroke-width=".6" stroke-dasharray="2 3"/>
+            <use href="#laurel"/>
+            <use href="#laurel" transform="translate(160 0) scale(-1 1)"/>
+            <path d="M80 18 l4 8 -4 4 -4 -4z" fill="url(#goldG)"/>
+            <text x="80" y="90" text-anchor="middle" font-family="Cinzel, serif" font-size="26" fill="url(#goldG)" letter-spacing="1">E<tspan font-family="Great Vibes, cursive" font-size="28" dx="2" dy="1">&amp;</tspan><tspan dx="2" dy="-1">S</tspan></text>
+          </svg>
+        </div>
+
+        <p class="hero-kicker reveal" data-anim="fade-down" data-delay="150">Together with their families</p>
+
+        <h1 class="hero-names reveal" data-anim="letters" aria-label="Ethan and Sophia">
+          <span class="name" data-split>Ethan</span>
+          <span class="amp">&amp;</span>
+          <span class="name" data-split>Sophia</span>
+        </h1>
+
+        <div class="hero-divider reveal" data-anim="zoom" data-delay="900">
+          <span class="line"></span>
+          <svg viewBox="0 0 60 20" aria-hidden="true"><path d="M0 10 C10 0 20 0 30 10 C40 20 50 20 60 10 M0 10 C10 20 20 20 30 10 C40 0 50 0 60 10" fill="none" stroke="#ead39b" stroke-width="1"/><circle cx="30" cy="10" r="2.6" fill="#ead39b"/></svg>
+          <span class="line"></span>
+        </div>
+
+        <p class="hero-sub reveal" data-anim="fade-up" data-delay="1000">request the honour of your presence at their wedding</p>
+
+        <div class="hero-date-block reveal" data-anim="flip-up" data-delay="1150">
+          <span class="hd-side">Sunday</span>
+          <span class="hd-center"><b>14</b><small>February</small></span>
+          <span class="hd-side">2027</span>
+        </div>
+        <p class="hero-venue reveal" data-anim="fade-up" data-delay="1250"><i class="bi bi-geo-alt"></i> Lavender Palace Gardens &middot; Lake Como</p>
+
+        <div class="hero-actions reveal" data-anim="fade-up" data-delay="1400">
+          <a href="#rsvp" class="btn btn-lux"><i class="bi bi-envelope-heart me-2"></i>Kindly RSVP</a>
+          <a href="#invitation" class="btn btn-lux-outline">View Invitation</a>
+        </div>
+        <div class="hero-pill reveal" data-anim="fade-up" data-delay="1550">
+          <span class="dot"></span><b id="heroDays">--</b>&nbsp;days until forever
+        </div>
+      </div>
+
+      <a href="#countdown" class="scroll-cue" aria-label="Scroll down">
+        <span class="mouse"><span class="wheel"></span></span>
+        <small>Scroll</small>
+      </a>
+
+      <svg class="hero-curve" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 40 Q720 150 1440 40 V120 H0 Z" fill="#fcf9ff"/>
+        <path d="M0 40 Q720 150 1440 40" fill="none" stroke="#c9a35b" stroke-width="1.5" stroke-opacity=".8"/>
+      </svg>
+    </section>
+    <!-- ============ COUNTDOWN — lavender card frame ============ -->
+    <section id="countdown" class="page-section">
+      <header class="page-head reveal" data-anim="fade-up">
+        <p class="eyebrow">Counting every heartbeat</p>
+        <h2 class="pg-title">Save the <em>Date</em></h2>
+      </header>
+      <div class="page frame-lavender reveal" data-anim="rise-3d">
+        <div class="page-inner">
+          <p class="pg-kicker">Sunday</p>
+          <div class="big-date"><span>14</span><i></i><span>02</span><i></i><span>27</span></div>
+          <p class="pg-kicker">Lavender Palace Gardens</p>
+          <div class="count-grid" id="countdownGrid">
+            <div class="count-tile"><span class="count-num" data-unit="days">00</span><span class="count-label">Days</span></div>
+            <div class="count-tile"><span class="count-num" data-unit="hours">00</span><span class="count-label">Hours</span></div>
+            <div class="count-tile"><span class="count-num" data-unit="minutes">00</span><span class="count-label">Mins</span></div>
+            <div class="count-tile"><span class="count-num" data-unit="seconds">00</span><span class="count-label">Secs</span></div>
+          </div>
+          <a class="btn btn-lux btn-sm-lux" id="addToCalendar" href="#"><i class="bi bi-calendar-heart me-2"></i>Add to Calendar</a>
+        </div>
+      </div>
+    </section>
+    <!-- ============ 3D FLIP INVITATION CARD ============ -->
+    <section id="invitation" class="section invitation-section">
+      <div class="section-bg" style="background-image:url('images/chandelier.jpg')" data-parallax="0.2"></div>
+      <div class="section-veil light"></div>
+      <div class="container position-relative">
+        <div class="text-center mb-5">
+          <p class="eyebrow reveal" data-anim="fade-up">The Royal Invitation</p>
+          <h2 class="section-title reveal" data-anim="fade-up" data-delay="100">A Card Made of <em>Love</em></h2>
+          <p class="section-lead reveal" data-anim="fade-up" data-delay="200">Move your cursor over the card &mdash; tap or click to turn it over.</p>
+        </div>
+
+        <div class="card3d-stage reveal" data-anim="rise-3d">
+          <div class="card3d" id="inviteCard" tabindex="0" role="button" aria-label="Flip invitation card">
+            <div class="card3d-face card3d-front" style="background-image:url('images/fairytale-frame.jpg')">
+              <div class="card3d-content">
+                <p class="tiny-caps">The pleasure of your company is requested at the marriage of</p>
+                <h3 class="script big">Ethan</h3>
+                <p class="tiny-caps">son of Mr. &amp; Mrs. James Carter</p>
+                <span class="script amp-sm">&amp;</span>
+                <h3 class="script big">Sophia</h3>
+                <p class="tiny-caps">daughter of Mr. &amp; Mrs. Daniel Moore</p>
+                <div class="mini-ornament"><i class="bi bi-flower1"></i></div>
+                <p class="card-date">Sunday, the fourteenth of February<br>Two thousand twenty-seven</p>
+                <p class="tiny-caps">at four o’clock in the afternoon</p>
+              </div>
+              <span class="card3d-shine"></span>
+            </div>
+            <div class="card3d-face card3d-back" style="background-image:url('images/lavender-card.jpg')">
+              <div class="card3d-content back">
+                <h4 class="cinzel">The Details</h4>
+                <ul class="detail-list">
+                  <li><i class="bi bi-geo-alt"></i><span><strong>Lavender Palace Gardens</strong><br>21 Wisteria Lane, Lake Como</span></li>
+                  <li><i class="bi bi-clock"></i><span><strong>Ceremony</strong> 4:00 PM<br><strong>Reception</strong> 7:00 PM</span></li>
+                  <li><i class="bi bi-stars"></i><span><strong>Dress Code</strong><br>Black tie &middot; shades of lilac welcome</span></li>
+                  <li><i class="bi bi-envelope-heart"></i><span><strong>RSVP</strong> by 10 January 2027</span></li>
+                </ul>
+                <p class="script mid">with love</p>
+              </div>
+              <span class="card3d-shine"></span>
+            </div>
+          </div>
+          <div class="card3d-shadow"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COUPLE — gold photo frames ============ -->
+    <section id="couple" class="page-section">
+      <header class="page-head reveal" data-anim="fade-up">
+        <p class="eyebrow">Two hearts, one soul</p>
+        <h2 class="pg-title">The Happy <em>Couple</em></h2>
+      </header>
+      <div class="page frame-photos reveal" data-anim="rise-3d">
+        <!-- groom inside the top-left gold frame -->
+        <div class="frame-slot slot-groom" data-tilt>
+          <div class="slot-photo" style="background-image:url('images/garden.jpg')"></div>
+          <div class="slot-body">
+            <span class="slot-initial">E</span>
+            <h3 class="script">Ethan Carter</h3>
+            <p class="slot-role">The Groom</p>
+          </div>
+        </div>
+        <!-- bride inside the bottom-right gold frame -->
+        <div class="frame-slot slot-bride" data-tilt>
+          <div class="slot-photo" style="background-image:url('images/floral-stage.jpg')"></div>
+          <div class="slot-body">
+            <span class="slot-initial">S</span>
+            <h3 class="script">Sophia Moore</h3>
+            <p class="slot-role">The Bride</p>
+            <p class="slot-text">A painter who sees poetry in lavender fields &amp; starlit walks.</p>
+          </div>
+        </div>
+      </div>
+      <p class="page-note reveal" data-anim="fade-up">
+        <b>Ethan</b> designs skylines by day and dreams of quiet mountain mornings.
+        <b>Sophia</b> paints lavender fields and old love letters. Together, they are home.
+      </p>
+    </section>
+    <!-- ============ QUOTE BANNER (parallax) ============ -->
+    <section class="quote-banner">
+      <div class="section-bg" style="background-image:url('images/garden.jpg')" data-parallax="0.3"></div>
+      <div class="section-veil dark"></div>
+      <div class="container text-center position-relative">
+        <i class="bi bi-quote quote-icon reveal" data-anim="zoom"></i>
+        <blockquote class="reveal" data-anim="fade-up" data-delay="100">
+          Love is composed of a single soul inhabiting two bodies.
+        </blockquote>
+        <cite class="reveal" data-anim="fade-up" data-delay="200">&mdash; Aristotle</cite>
+      </div>
+    </section>
+
+    <!-- ============ LOVE STORY — chandelier arch, 3D card stack ============ -->
+    <section id="story" class="page-section">
+      <header class="page-head reveal" data-anim="fade-up">
+        <p class="eyebrow">Once upon a time</p>
+        <h2 class="pg-title">Our Love <em>Story</em></h2>
+      </header>
+      <div class="page frame-arch reveal" data-anim="rise-3d">
+        <div class="page-inner">
+          <div class="story-stack" id="storyStack">
+            <article class="story-card">
+              <span class="story-icon"><i class="bi bi-cup-hot"></i></span>
+              <span class="story-date">Spring 2019</span>
+              <h4>The First Hello</h4>
+              <p>A rainy café in Florence, one empty table, and two strangers who agreed to share it.</p>
+            </article>
+            <article class="story-card">
+              <span class="story-icon"><i class="bi bi-flower2"></i></span>
+              <span class="story-date">Summer 2020</span>
+              <h4>Lavender Fields</h4>
+              <p>Endless purple rows in Provence, golden sunsets, and the moment we both just knew.</p>
+            </article>
+            <article class="story-card">
+              <span class="story-icon"><i class="bi bi-house-heart"></i></span>
+              <span class="story-date">Autumn 2022</span>
+              <h4>A Home of Our Own</h4>
+              <p>Big windows, a rescued cat named Violet, and a kitchen that smells of fresh bread.</p>
+            </article>
+            <article class="story-card">
+              <span class="story-icon"><i class="bi bi-gem"></i></span>
+              <span class="story-date">Winter 2025</span>
+              <h4>The Proposal</h4>
+              <p>A snowy balcony under the stars. She said yes before he even finished asking.</p>
+            </article>
+          </div>
+          <div class="story-nav">
+            <button class="story-btn" id="storyPrev" aria-label="Previous chapter"><i class="bi bi-chevron-left"></i></button>
+            <div class="story-dots" id="storyDots"></div>
+            <button class="story-btn" id="storyNext" aria-label="Next chapter"><i class="bi bi-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EVENTS — floral stage frame ============ -->
+    <section id="events" class="page-section">
+      <header class="page-head reveal" data-anim="fade-up">
+        <p class="eyebrow">Celebrations</p>
+        <h2 class="pg-title">Wedding <em>Events</em></h2>
+      </header>
+      <div class="page frame-stage reveal" data-anim="rise-3d">
+        <div class="page-inner">
+          <p class="pg-hint"><i class="bi bi-hand-index-thumb"></i> Tap a card to flip</p>
+          <div class="event-flip mini" tabindex="0">
+            <div class="event-inner">
+              <div class="event-front">
+                <span class="event-icon"><i class="bi bi-music-note-beamed"></i></span>
+                <div><h3 class="script">Welcome Soirée</h3><p class="small-date">Fri · 12 Feb 2027</p></div>
+              </div>
+              <div class="event-back">
+                <p><i class="bi bi-clock"></i> 7:00 PM onwards</p>
+                <p><i class="bi bi-geo-alt"></i> The Crystal Ballroom</p>
+              </div>
+            </div>
+          </div>
+          <div class="event-flip mini featured" tabindex="0">
+            <div class="event-inner">
+              <div class="event-front">
+                <span class="event-icon"><i class="bi bi-heart-arrow"></i></span>
+                <div><h3 class="script">The Ceremony</h3><p class="small-date">Sun · 14 Feb 2027</p></div>
+              </div>
+              <div class="event-back">
+                <p><i class="bi bi-clock"></i> 4:00 PM sharp</p>
+                <p><i class="bi bi-geo-alt"></i> Wisteria Pavilion</p>
+              </div>
+            </div>
+          </div>
+          <div class="event-flip mini" tabindex="0">
+            <div class="event-inner">
+              <div class="event-front">
+                <span class="event-icon"><i class="bi bi-cup-straw"></i></span>
+                <div><h3 class="script">Grand Reception</h3><p class="small-date">Sun · 14 Feb 2027</p></div>
+              </div>
+              <div class="event-back">
+                <p><i class="bi bi-clock"></i> 7:00 PM till late</p>
+                <p><i class="bi bi-geo-alt"></i> The Grand Terrace</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ============ 3D GALLERY CAROUSEL ============ -->
+    <section id="gallery" class="section gallery-section">
+      <div class="section-bg" style="background-image:url('images/floral-stage.jpg')" data-parallax="0.25"></div>
+      <div class="section-veil deep"></div>
+      <div class="container">
+        <div class="text-center mb-4">
+          <p class="eyebrow light reveal" data-anim="fade-up">Moments</p>
+          <h2 class="section-title light reveal" data-anim="fade-up" data-delay="100">A 3D <em>Gallery</em></h2>
+          <p class="section-lead light reveal" data-anim="fade-up" data-delay="200">Drag or swipe to spin &middot; click a photo to view it</p>
+        </div>
+      </div>
+
+      <div class="ring-stage reveal" data-anim="zoom">
+        <div class="ring" id="galleryRing">
+          <figure class="ring-item" data-src="images/floral-stage.jpg"><img src="images/floral-stage.jpg" alt="Lilac floral stage with candles" loading="lazy"></figure>
+          <figure class="ring-item" data-src="images/garden.jpg"><img src="images/garden.jpg" alt="Palace garden staircase with purple blossoms" loading="lazy"></figure>
+          <figure class="ring-item" data-src="images/chandelier.jpg"><img src="images/chandelier.jpg" alt="Chandelier with lilac drapes" loading="lazy"></figure>
+          <figure class="ring-item" data-src="images/fairytale-frame.jpg"><img src="images/fairytale-frame.jpg" alt="Fairytale tower floral frame" loading="lazy"></figure>
+          <figure class="ring-item" data-src="images/photo-frames.jpg"><img src="images/photo-frames.jpg" alt="Lilac mandap with gold frames" loading="lazy"></figure>
+          <figure class="ring-item" data-src="images/lavender-card.jpg"><img src="images/lavender-card.jpg" alt="Lavender sprigs and butterfly" loading="lazy"></figure>
+          <figure class="ring-item" data-src="images/envelope.jpg"><img src="images/envelope.jpg" alt="Envelope with lilac wax seal" loading="lazy"></figure>
+          <figure class="ring-item" data-src="images/garden.jpg"><img src="images/garden.jpg" alt="Garden of wisteria" loading="lazy"></figure>
+        </div>
+        <div class="ring-floor"></div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button class="ring-btn" id="ringPrev" aria-label="Previous"><i class="bi bi-chevron-left"></i></button>
+        <button class="ring-btn" id="ringNext" aria-label="Next"><i class="bi bi-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ============ VENUE — fairytale tower frame ============ -->
+    <section id="venue" class="page-section">
+      <header class="page-head reveal" data-anim="fade-up">
+        <p class="eyebrow">Where it happens</p>
+        <h2 class="pg-title">The <em>Venue</em></h2>
+      </header>
+      <div class="page frame-tower reveal" data-anim="rise-3d">
+        <div class="page-inner">
+          <div class="venue-orb" style="background-image:url('images/garden.jpg')"></div>
+          <h3 class="venue-name">Lavender Palace<br><span class="script">Gardens</span></h3>
+          <p class="venue-text">A villa wrapped in wisteria, with marble staircases overlooking the lake.</p>
+          <ul class="venue-mini">
+            <li><i class="bi bi-signpost-2"></i> 21 Wisteria Lane, Lake Como</li>
+            <li><i class="bi bi-car-front"></i> Valet &amp; shuttle provided</li>
+            <li><i class="bi bi-building"></i> Rooms at Hotel Villa Lilla</li>
+          </ul>
+          <a class="btn btn-lux btn-sm-lux" href="https://maps.google.com/?q=Lake+Como+Italy" target="_blank" rel="noopener"><i class="bi bi-map me-2"></i>Get Directions</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RSVP — lavender reply card ============ -->
+    <section id="rsvp" class="page-section">
+      <header class="page-head reveal" data-anim="fade-up">
+        <p class="eyebrow">Will you join us?</p>
+        <h2 class="pg-title">Kindly <em>RSVP</em></h2>
+      </header>
+      <div class="page frame-lavender stretch reveal" data-anim="rise-3d">
+        <div class="page-inner">
+          <p class="pg-kicker">Reply by 10 January 2027</p>
+          <form id="rsvpForm" class="rsvp-mini needs-validation" novalidate>
+            <div class="mb-2">
+              <input type="text" class="form-control lux-input" id="guestName" placeholder="Full name" aria-label="Full name" required>
+              <div class="invalid-feedback">Please tell us your name.</div>
+            </div>
+            <div class="mb-2">
+              <input type="email" class="form-control lux-input" id="guestEmail" placeholder="Email address" aria-label="Email address" required>
+              <div class="invalid-feedback">Please enter a valid email.</div>
+            </div>
+            <div class="attend-toggle mb-2">
+              <input type="radio" class="btn-check" name="attend" id="attendYes" value="yes" checked>
+              <label class="attend-option" for="attendYes"><i class="bi bi-heart-fill"></i> Accept</label>
+              <input type="radio" class="btn-check" name="attend" id="attendNo" value="no">
+              <label class="attend-option" for="attendNo"><i class="bi bi-x-circle"></i> Decline</label>
+            </div>
+            <div class="row g-2 mb-2">
+              <div class="col-6 attend-only">
+                <select class="form-select lux-input" id="guestCount" aria-label="Number of guests">
+                  <option value="1">Just me</option>
+                  <option value="2">2 guests</option>
+                  <option value="3">3 guests</option>
+                  <option value="4">4 guests</option>
+                </select>
+              </div>
+              <div class="col-6 attend-only">
+                <select class="form-select lux-input" id="guestMeal" aria-label="Meal preference">
+                  <option>Tasting menu</option>
+                  <option>Vegetarian</option>
+                  <option>Vegan</option>
+                  <option>Gluten-free</option>
+                </select>
+              </div>
+            </div>
+            <textarea class="form-control lux-input mb-3" id="guestMsg" rows="2" placeholder="A note for the couple" aria-label="A note for the couple"></textarea>
+            <button type="submit" class="btn btn-lux w-100"><i class="bi bi-send-heart me-2"></i>Send RSVP</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="lux-footer">
+    <div class="container text-center">
+      <div class="footer-monogram reveal" data-anim="zoom">E<i>&amp;</i>S</div>
+      <p class="script footer-thanks reveal" data-anim="fade-up">Thank you for being part of our story</p>
+      <p class="cinzel footer-date reveal" data-anim="fade-up">14 &middot; 02 &middot; 2027</p>
+      <p class="hashtag reveal" data-anim="fade-up">#EthanAndSophiaForever</p>
+      <small class="d-block mt-4 footer-copy">Made with <i class="bi bi-heart-fill"></i> for our favourite people</small>
+    </div>
+  </footer>
+
+  <!-- background music: starts when the seal is tapped, pauses when the guest leaves -->
+  <audio id="bgMusic" src="audio/wedding-song.mp4" loop preload="auto"></audio>
+  <button class="music-btn" id="musicBtn" type="button" aria-label="Pause music">
+    <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <i class="bi bi-music-note-beamed note" aria-hidden="true"></i>
+  </button>
+
+  <a href="#home" class="back-top" aria-label="Back to top"><i class="bi bi-arrow-up"></i></a>
+
+  <!-- ============ LIGHTBOX MODAL ============ -->
+  <div class="modal fade" id="lightbox" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content lux-modal">
+        <button type="button" class="btn-close btn-close-white lightbox-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <img id="lightboxImg" src="" alt="Gallery photo">
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RSVP SUCCESS MODAL ============ -->
+  <div class="modal fade" id="rsvpModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content lux-modal success">
+        <div class="success-heart"><i class="bi bi-heart-fill"></i></div>
+        <h3 class="script" id="rsvpTitle">Thank you!</h3>
+        <p id="rsvpMsg">Your RSVP has been received.</p>
+        <button type="button" class="btn btn-lux" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/enhance.js"></script>
+</body>
+</html>
